@@ -41,7 +41,7 @@ export async function checkGeminiHealth(genAI: GoogleGenerativeAI): Promise<Heal
         service: 'Gemini API',
         status: 'healthy',
         responseTime,
-        message: 'API responding normally,
+        message: 'API responding normally',
         timestamp: new Date()
       };
     } else {
@@ -50,7 +50,7 @@ export async function checkGeminiHealth(genAI: GoogleGenerativeAI): Promise<Heal
         service: 'Gemini API',
         status: 'degraded',
         responseTime,
-        message: 'API returned empty response,
+        message: 'API returned empty response',
         timestamp: new Date()
       };
     }
@@ -85,7 +85,7 @@ export async function checkSupabaseHealth(supabase: any): Promise<HealthCheckRes
     if (error) {
       metrics.updateHealthStatus('supabase', 'unhealthy', getErrorMessage(error), responseTime);
       return {
-        service: 'Supabase,
+        service: 'Supabase',
         status: 'unhealthy',
         responseTime,
         message: getErrorMessage(error),
@@ -95,10 +95,10 @@ export async function checkSupabaseHealth(supabase: any): Promise<HealthCheckRes
     
     metrics.updateHealthStatus('supabase', 'healthy', 'Database responding normally', responseTime);
     return {
-      service: 'Supabase,
+      service: 'Supabase',
       status: 'healthy',
       responseTime,
-      message: 'Database responding normally,
+      message: 'Database responding normally',
       timestamp: new Date()
     };
   } catch (error: unknown) {
@@ -123,9 +123,9 @@ export async function checkOpenAIHealth(openai: OpenAI | null): Promise<HealthCh
   if (!openai) {
     metrics.updateHealthStatus('openai', 'unhealthy', 'API key not configured');
     return {
-      service: 'OpenAI API,
+      service: 'OpenAI API',
       status: 'unhealthy',
-      message: 'API key not configured,
+      message: 'API key not configured',
       timestamp: new Date()
     };
   }
@@ -141,19 +141,19 @@ export async function checkOpenAIHealth(openai: OpenAI | null): Promise<HealthCh
     if (models.data && models.data.length > 0) {
       metrics.updateHealthStatus('openai', 'healthy', 'API responding normally', responseTime);
       return {
-        service: 'OpenAI API,
+        service: 'OpenAI API',
         status: 'healthy',
         responseTime,
-        message: 'API responding normally,
+        message: 'API responding normally',
         timestamp: new Date()
       };
     } else {
       metrics.updateHealthStatus('openai', 'degraded', 'API returned no models', responseTime);
       return {
-        service: 'OpenAI API,
+        service: 'OpenAI API',
         status: 'degraded',
         responseTime,
-        message: 'API returned no models,
+        message: 'API returned no models',
         timestamp: new Date()
       };
     }
@@ -195,9 +195,9 @@ export async function runAllHealthChecks(
       return result.value;
     } else {
       return {
-        service: 'Unknown,
+        service: 'Unknown',
         status: 'unhealthy',
-        message: result.reason?.message || 'Health check failed,
+        message: result.reason?.message || 'Health check failed',
         timestamp: new Date()
       };
     }
